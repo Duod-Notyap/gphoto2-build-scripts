@@ -40,16 +40,16 @@ cd _build
 export ANDROID_NDK=/usr/lib/android-ndk
 
 # valid values: arm-linux-androideabi-4.9, aarch64-linux-android-4.9, x86-4.9, x86_64-4.9
-export TOOLCHAIN=aarch64-linux-android-4.9
+export TOOLCHAIN=x86_64-4.9
 
 # valid values: arm-linux-androideabi, aarch64-linux-android, i686-linux-android, x86_64-linux-android
-export CROSS_COMPILE=aarch64-linux-android
+export CROSS_COMPILE=x86_64-linux-android
 
 # valid value: android-XX, where XX is 9-24
 export API=android-24
 
 # valid values: arch-arm, arch-arm64, arch-x86, arch-x86_64
-export ARCH=arch-arm64
+export ARCH=arch-x86_64
 
 export ANDROID_PREFIX=${ANDROID_NDK}/toolchains/${TOOLCHAIN}/prebuilt/linux-x86_64
 export SYSROOT=${ANDROID_NDK}/platforms/${API}/${ARCH}
