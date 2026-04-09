@@ -39,17 +39,34 @@ cd _build
 # by default the Android NDK root is at /usr/lib/android-ndk
 export ANDROID_NDK=/usr/lib/android-ndk
 
-# valid values: arm-linux-androideabi-4.9, aarch64-linux-android-4.9, x86-4.9, x86_64-4.9
-export TOOLCHAIN=x86_64-4.9
-
-# valid values: arm-linux-androideabi, aarch64-linux-android, i686-linux-android, x86_64-linux-android
-export CROSS_COMPILE=x86_64-linux-android
-
 # valid value: android-XX, where XX is 9-24
 export API=android-24
 
-# valid values: arch-arm, arch-arm64, arch-x86, arch-x86_64
-export ARCH=arch-x86_64
+case $TARGET in
+    "x86")
+        export TOOLCHAIN=x86-4.9
+        export CROSS_COMPILE=i686-linux-android
+        export ARCH=arch-x86
+        ;;
+
+    "x86_64")
+        export TOOLCHAIN=x86_64-4.9
+        export CROSS_COMPILE=x86_64-linux-android
+        export ARCH=arch-x86_64
+        ;;
+
+    * | "aarch64")
+        export TOOLCHAIN=aarch64-linux-android-4.9
+        export CROSS_COMPILE=aarch64-linux-android
+        export ARCH=arch-arm64
+        ;;
+
+    "armeabi")
+        export TOOLCHAIN=arm-linux-androideabi-4.9
+        export CROSS_COMPILE=arm-linux-androideabi
+        export ARCH=arch-arm
+        ;;
+esac
 
 export ANDROID_PREFIX=${ANDROID_NDK}/toolchains/${TOOLCHAIN}/prebuilt/linux-x86_64
 export SYSROOT=${ANDROID_NDK}/platforms/${API}/${ARCH}

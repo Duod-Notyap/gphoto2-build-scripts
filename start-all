@@ -1,0 +1,10 @@
+#!/bin/bash
+
+run () {
+    docker run -d --name libgphoto2-build-$1 -e TARGET=$1 -e LDFLAGS="-Wl,-z,max-page-size=16384" libgphoto2-build:latest
+}
+
+run x86
+run x86_64
+run armeabi
+run aarch64

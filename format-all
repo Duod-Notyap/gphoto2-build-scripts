@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./format libgphoto2-build-x86
+./format libgphoto2-build-x86_64
+./format libgphoto2-build-armeabi
+./format libgphoto2-build-aarch64

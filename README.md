@@ -1,5 +1,15 @@
 gphoto2 Build Scripts
 
+## Quick Start
+
+```bash
+docker build -t libgphoto2-build:latest android
+./start-all
+# Wait for all the containers to finish. 
+./format 
+```
+
+
 This repository contains build scripts for specialized builds of libgphoto2 and gphoto2. Currently, there are two directories containing two different scripts:
 * android: an Android port using the Android NDK cross compiler
 * appimage: a standalone AppImage encapsulating dependencies plus camlibs/iolibs

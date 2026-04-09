@@ -1,0 +1,43 @@
+#! /usr/bin/bash
+
+help () {
+    echo "usage: format <container> [output directory]"
+}
+
+if [ ! $1 ]; then 
+    help && exit 1
+fi
+
+if [ ! $2 ]; then 
+    OUTDIR="$(pwd)/${1}_out"
+    echo "No output dir specified, defaulting to $OUTDIR"
+else
+    OUTDIR=$2
+fi
+
+if [ "$OUTDIR" == "/" ] || [ "$OUTDIR" == "" ]; then
+    echo "Please for the love of god dont use '$OUTDIR' as your output directory."
+fi
+
+
+mkdir -p $OUTDIR/tmp
+mkdir -p $OUTDIR/lib
+docker cp $1:/workspace/_prefix/lib $OUTDIR/tmp
+
+LIBS=`find $OUTDIR/tmp/lib/ -maxdepth 1 -type f -name '*.so'`
+CAMLIBS=`find $OUTDIR/tmp/lib/libgphoto2/ -type f -name '*.so'`
+PORTLIBS=`find $OUTDIR/tmp/lib/libgphoto2_port/ -type f -name '*.so'`
+
+cp $LIBS $OUTDIR/lib
+
+for i in $CAMLIBS; do 
+    cp $i $OUTDIR/lib/libgphoto2_camlib_$(basename "$i");
+done
+
+for i in $PORTLIBS; do 
+    cp $i $OUTDIR/lib/libgphoto2_port_iolib_$(basename "$i");
+done
+
+rm -rf $OUTDIR/tmp
+mv $OUTDIR/lib/* $OUTDIR
+rm -r $OUTDIR/lib
