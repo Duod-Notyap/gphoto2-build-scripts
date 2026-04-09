@@ -6,9 +6,19 @@ gphoto2 Build Scripts
 docker build -t libgphoto2-build:latest android
 ./start-all
 # Wait for all the containers to finish. 
-./format 
+./format-all
 ```
 
+## Scripts
+The scripts here have been modified so that the docker container may be started with `-e TARGET="x86|x86_64|aarch64|armeabi"`, and the corresponding architecture will be built. Some convenience scripts are provided for ease of use.
+- `start-all`: Starts 4 containers, one for each architecture, also with `LDFLAGS="-Wl,-z,max-page-size=16384"` for 16KB page alignment. Expects the image to be named `libgphoto2-build:latest`
+- `format-all`: Formats all the libs into one flat directory for easy importing into android studio. Expects the containers to be named `libgphoto2-build-$TARGET`.
+
+
+
+
+---
+### Original README
 
 This repository contains build scripts for specialized builds of libgphoto2 and gphoto2. Currently, there are two directories containing two different scripts:
 * android: an Android port using the Android NDK cross compiler
